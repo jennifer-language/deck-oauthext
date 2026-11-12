@@ -1,0 +1,18 @@
+[package]
+name = "@jennifer/oauthext"
+version = "0.1.0"
+description = "Vendor OAuth2 for the oauth module: Google and Microsoft presets, Google service accounts"
+license = "LGPL-3.0-only"
+authors = ["mplx <mplx@jennifer-lang.dev>"]
+# net - the token requests go through the bundled `http` module. The stock
+#       `jennifer-tiny` has no network driver, so logins need the default binary.
+capabilities = ["net"]
+keywords = ["oauth", "oauth2", "google", "microsoft", "entra", "service-account", "jwt"]
+
+[package.urls]
+deck = "https://raw.githubusercontent.com/jennifer-language/deck-oauthext/main/deck.toml"
+homepage = "https://github.com/jennifer-language/deck-oauthext"
+manual = "https://jennifer-language.github.io/deck-oauthext/"
+
+[engines]
+jennifer = ">=0.26.0"

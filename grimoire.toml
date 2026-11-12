@@ -1,0 +1,33 @@
+# Grimoire book configuration for the @jennifer/oauthext documentation.
+
+[book]
+title = "@jennifer/oauthext"
+description = "Vendor OAuth2 for the oauth module: Google and Microsoft presets, Google service accounts"
+language = "en"
+src = "docs"
+
+[build]
+out = "site"
+clean = true
+jobs = 0
+
+[html]
+theme = "nordic"
+mode = "auto"
+navPosition = "left"
+tocPosition = "right"
+tocDepth = 3
+sectionNumbers = true
+titleUrl = "https://jennifer-language.github.io/deck-oauthext/"
+repoUrl = "https://github.com/jennifer-language/deck-oauthext"
+repoLabel = "Source"
+editUrl = "https://github.com/jennifer-language/deck-oauthext/edit/main/docs/{path}"
+
+[highlight]
+enabled = true
+
+[search]
+enabled = true
+
+[pdf]
+enabled = false
