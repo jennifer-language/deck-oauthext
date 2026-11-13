@@ -25,6 +25,8 @@ This vendors the deck to `vendor/<scope>/oauthext/`. Without `jvc`, unpack the
 ## Usage
 
 ```jennifer
+use fs;
+
 import "oauth.j" as oauth;
 import "@jennifer/oauthext/" as oauthext;
 

@@ -10,6 +10,9 @@ JWT with that key and trades it at Google's token endpoint (RFC 7523, the JWT
 bearer grant).
 
 ```jennifer
+use fs;
+import "http.j" as http;
+
 def tok as oauth.Token init oauthext.googleServiceAccount(
     fs.readString("/etc/myapp/service-account.json"),
     "https://www.googleapis.com/auth/devstorage.read_only");

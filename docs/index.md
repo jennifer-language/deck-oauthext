@@ -24,7 +24,8 @@ to Jennifer 0.25; [Moving from oauth](migrating.md) shows the change.
 
 ## Conventions
 
-Snippets assume these imports:
+Snippets assume these imports, and add the `use` lines and other imports
+they need:
 
 ```jennifer
 import "oauth.j" as oauth;
@@ -46,9 +47,12 @@ a token endpoint that is not https (plain http only on this machine, with no
 `client_email` that is not an e-mail address. A key file is checked completely before
 any request is sent. A refusal from the token endpoint keeps the `oauth`
 module's kind `"oauth"`, with Google's error code and description
-(`invalid_grant: Invalid JWT Signature.`).
+(`invalid_grant: Invalid JWT Signature.`), and so does a request that fails:
+an endpoint that cannot be reached, stalls or sends an oversized reply.
 
 ```jennifer
+use io;
+
 try {
     def tok as oauth.Token init oauthext.googleServiceAccount($keyJson, $scope);
 } catch (e) {

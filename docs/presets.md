@@ -24,6 +24,9 @@ flow allows only a short list of scopes (`openid`, `email`, `profile`,
 the type "Desktop app"; Google accepts any loopback port as its redirect.
 
 ```jennifer
+use httpd;
+use io;
+
 def cfg as oauth.Config init oauthext.google($clientId, $clientSecret,
     "https://mail.google.com/");
 def srv as httpd.Server init httpd.listen("127.0.0.1:0");
@@ -44,11 +47,20 @@ For the scopes the device flow allows, an OAuth client of the type "TVs and
 Limited Input devices" signs in from a terminal:
 
 ```jennifer
+use io;
+
 def cfg as oauth.Config init oauthext.google($clientId, $clientSecret, "openid email");
 def dev as oauth.DeviceAuth init oauth.deviceStart($cfg);
 io.printf("visit %s and enter %s\n", $dev.verificationUri, $dev.userCode);
 def tok as oauth.Token init oauth.deviceWait($cfg, $dev);
 ```
+
+A server that runs the sign-in for another program, handing out the user
+code while the other side waits, polls with `oauth.devicePoll`: one request,
+no waiting, and the provider's error code in the result. For a browser
+sign-in whose PKCE verifier the other side made, it trades the code with
+`oauth.exchangeCodeWith`. The bundled module's guide covers both under
+"Relaying a sign-in".
 
 For a program with no user at all, use a [service account](service-accounts.md)
 instead.
@@ -73,5 +85,7 @@ Microsoft's through either flow - signs in to IMAP and SMTP through SASL
 XOAUTH2 with the bundled `sasl` module:
 
 ```jennifer
+import "sasl.j" as sasl;
+
 def xoauth as string init sasl.bearer("ada@example.com", $tok.accessToken);
 ```
