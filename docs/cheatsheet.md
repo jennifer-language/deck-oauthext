@@ -14,7 +14,8 @@ import "@jennifer/oauthext/" as oauthext;
 The presets return the bundled module's `oauth.Config`, and the logins its
 `oauth.Token`; use them with `oauth.deviceStart`, `oauth.refresh`,
 `oauth.isExpired`, `oauth.save` and the rest. Errors about the deck's own input
-are kind `"oauthext"`; a refusal from the token endpoint stays kind `"oauth"`.
+are kind `"oauthext"`; a refusal from the token endpoint stays an `oauth.OAuthError`
+(kind `"oauth"`, with the provider's `errorCode`, `description` and `status`).
 
 ## Presets
 

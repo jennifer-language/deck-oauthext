@@ -13,7 +13,8 @@
  *
  * A problem with the deck's own input (a key file, a tenant, a scope) is an
  * `Error` of kind "oauthext"; a failed request or a refusal from the token
- * endpoint keeps the `oauth` module's kind "oauth".
+ * endpoint is the `oauth` module's `oauth.OAuthError` (kind "oauth"), whose
+ * `errorCode` holds Google's or Microsoft's code (`invalid_grant`, ...).
  *
  * @module oauthext
  * @example
@@ -353,7 +354,8 @@ export func serviceAccountAssertion(sa as ServiceAccount, scope as string, subje
  * @param keyJson {string} the key file's content
  * @param scope {string} the space-separated scopes, e.g. `https://www.googleapis.com/auth/cloud-platform`
  * @return {oauth.Token} the access token
- * @throws {Error} kind "oauthext" if the key file or scope is unusable; kind "oauth" if the request fails or Google refuses
+ * @throws {Error} kind "oauthext" if the key file or scope is unusable
+ * @throws {oauth.OAuthError} kind "oauth" if the request fails or Google refuses (its `errorCode`, such as `invalid_grant`)
  * @example
  *   def tok as oauth.Token init oauthext.googleServiceAccount(
  *       fs.readString("service-account.json"),
@@ -371,7 +373,8 @@ export func googleServiceAccount(keyJson as string, scope as string) {
  * @param scope {string} the space-separated scopes
  * @param subject {string} the user's e-mail address, `""` for the account itself
  * @return {oauth.Token} the access token
- * @throws {Error} kind "oauthext" if the key file, scope or subject is unusable; kind "oauth" if the request fails or Google refuses
+ * @throws {Error} kind "oauthext" if the key file, scope or subject is unusable
+ * @throws {oauth.OAuthError} kind "oauth" if the request fails or Google refuses (its `errorCode`, such as `invalid_grant`)
  */
 export func googleServiceAccountAs(keyJson as string, scope as string, subject as string) {
     def sa as ServiceAccount init serviceAccount($keyJson);

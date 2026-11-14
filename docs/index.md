@@ -46,8 +46,9 @@ a token endpoint that is not https (plain http only on this machine, with no
 `user@` part), a tenant that is not a name, an empty scope, a subject or
 `client_email` that is not an e-mail address. A key file is checked completely before
 any request is sent. A refusal from the token endpoint keeps the `oauth`
-module's kind `"oauth"`, with Google's error code and description
-(`invalid_grant: Invalid JWT Signature.`), and so does a request that fails:
+module's `oauth.OAuthError` (kind `"oauth"`), with Google's error code and
+description in the message (`invalid_grant: Invalid JWT Signature.`) and as the
+`errorCode` and `description` fields, and so does a request that fails:
 an endpoint that cannot be reached, stalls or sends an oversized reply.
 
 ```jennifer
